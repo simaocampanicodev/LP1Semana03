@@ -1,6 +1,6 @@
 using System;
 
-namespace HeroPerks
+namespace HeroPerk
 {
     [Flags]
     enum Perks
