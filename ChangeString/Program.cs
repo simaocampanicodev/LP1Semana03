@@ -6,7 +6,11 @@ namespace ChangeString
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello LP1!");
+            string phrase = Console.ReadLine();
+            string character = Console.ReadLine();
+
+            string modifiedPhrase = phrase.Replace(character, "x");
+            Console.WriteLine(modifiedPhrase);
         }
     }
 }
