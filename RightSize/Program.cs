@@ -4,9 +4,21 @@ namespace RightSize
 {
     public class Program
     {
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello LP1!");
+            foreach (string arg in args)
+            {
+                if (arg.Length >= 8)
+                {
+                    Console.WriteLine("[EARLY STOP]");
+                    break;
+                }
+                if (arg.Length > 3)
+                {
+                    Console.WriteLine(arg);
+                }
+
+            }
         }
     }
 }
