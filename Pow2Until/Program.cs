@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HeroPerk
+namespace Pow2Until
 {
     class Program
     {
