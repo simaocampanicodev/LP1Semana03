@@ -31,7 +31,7 @@ namespace TrapAnalyzer
             {
                 if (Enum.TryParse(args[i], out PlayerGear parsedGear))
                 {
-                    gear |= parsedGear; //
+                    gear |= parsedGear;
                 }
             }
             return gear;
