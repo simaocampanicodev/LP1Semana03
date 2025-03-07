@@ -25,13 +25,13 @@ namespace TrapAnalyzer
         /// <returns>The player gear.</returns>
         private static PlayerGear ParseGear(string[] args)
         {
-            PlayerGear gear = PlayerGear.None; // Começa sem equipamento
+            PlayerGear gear = PlayerGear.None;
 
-            for (int i = 1; i < args.Length; i++) // Pega os argumentos depois do primeiro (que é o tipo de armadilha)
+            for (int i = 1; i < args.Length; i++)
             {
                 if (Enum.TryParse(args[i], out PlayerGear parsedGear))
                 {
-                    gear |= parsedGear; // Adiciona o equipamento usando bitwise OR
+                    gear |= parsedGear; //
                 }
             }
             return gear;
@@ -47,10 +47,10 @@ namespace TrapAnalyzer
         {
             return trap switch
             {
-                TrapType.FallingRocks => (gear & PlayerGear.Helmet) != 0, // Precisa do Helmet
-                TrapType.SpinningBlades => (gear & PlayerGear.Shield) != 0, // Precisa do Shield
-                TrapType.PoisonGas => (gear & PlayerGear.Helmet) != 0 && (gear & PlayerGear.Shield) != 0, // Precisa de ambos: Helmet e Shield
-                TrapType.LavaPit => (gear & PlayerGear.Boots) != 0, // Precisa das Boots
+                TrapType.FallingRocks => (gear & PlayerGear.Helmet) != 0,
+                TrapType.SpinningBlades => (gear & PlayerGear.Shield) != 0,
+                TrapType.PoisonGas => (gear & PlayerGear.Helmet) != 0 && (gear & PlayerGear.Shield) != 0,
+                TrapType.LavaPit => (gear & PlayerGear.Boots) != 0,
                 _ => false
             };
         }
