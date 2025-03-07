@@ -25,9 +25,16 @@ namespace TrapAnalyzer
         /// <returns>The player gear.</returns>
         private static PlayerGear ParseGear(string[] args)
         {
-            // ////////// //
-            // CHANGE ME! //
-            // ////////// //
+            PlayerGear gear = PlayerGear.None; // Começa sem equipamento
+
+            for (int i = 1; i < args.Length; i++) // Pega os argumentos depois do primeiro (que é o tipo de armadilha)
+            {
+                if (Enum.TryParse(args[i], out PlayerGear parsedGear))
+                {
+                    gear |= parsedGear; // Adiciona o equipamento usando bitwise OR
+                }
+            }
+            return gear;
         }
 
         /// <summary>
@@ -35,23 +42,33 @@ namespace TrapAnalyzer
         /// </summary>
         /// <param name="trap">The trap the player falls into.</param>
         /// <param name="gear">The gear the player has.</param>
-        /// <returns>Wether the player survived the trap or not.</returns>
+        /// <returns>Whether the player survived the trap or not.</returns>
         private static bool CanSurviveTrap(TrapType trap, PlayerGear gear)
         {
-            // ////////// //
-            // CHANGE ME! //
-            // ////////// //
+            return trap switch
+            {
+                TrapType.FallingRocks => (gear & PlayerGear.Helmet) != 0, // Precisa do Helmet
+                TrapType.SpinningBlades => (gear & PlayerGear.Shield) != 0, // Precisa do Shield
+                TrapType.PoisonGas => (gear & PlayerGear.Helmet) != 0 && (gear & PlayerGear.Shield) != 0, // Precisa de ambos: Helmet e Shield
+                TrapType.LavaPit => (gear & PlayerGear.Boots) != 0, // Precisa das Boots
+                _ => false
+            };
         }
 
         /// <summary>
-        /// Display information on wether the player survived the trap or not.
+        /// Display information on whether the player survived the trap or not.
         /// </summary>
         /// <param name="trap">The trap the player has fallen into.</param>
         private static void DisplayResult(TrapType trap, bool survives)
         {
-            // ////////// //
-            // CHANGE ME! //
-            // ////////// //
+            if (survives)
+            {
+                Console.WriteLine($"Player survives {trap}");
+            }
+            else
+            {
+                Console.WriteLine($"Player dies due to {trap}");
+            }
         }
     }
 }
