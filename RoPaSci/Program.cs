@@ -2,41 +2,68 @@
 
 namespace RoPaSci
 {
+    enum GameItem
+    {
+        Rock,
+        Paper,
+        Scissors
+    }
+
+    enum GameStatus
+    {
+        Draw,
+        Player1Wins,
+        Player2Wins
+    }
+
     class Program
     {
         private static void Main(string[] args)
         {
-            int result = RockPaperScissors(args[0], args[1]);
-            switch (result)
+            if (args.Length < 2)
             {
-                case 0:
-                    Console.WriteLine("It's a draw!");
-                    break;
-                case 1:
-                    Console.WriteLine("Player 1 wins!");
-                    break;
-                case 2:
-                    Console.WriteLine("Player 2 wins!");
-                    break;
+                Console.WriteLine("Please provide two valid game items (Rock, Paper, Scissors).");
+                return;
+            }
+
+            try
+            {
+                GameItem player1 = Enum.Parse<GameItem>(args[0], true);
+                GameItem player2 = Enum.Parse<GameItem>(args[1], true);
+
+                GameStatus result = RockPaperScissors(player1, player2);
+
+                switch (result)
+                {
+                    case GameStatus.Draw:
+                        Console.WriteLine("It's a draw!");
+                        break;
+                    case GameStatus.Player1Wins:
+                        Console.WriteLine("Player 1 wins!");
+                        break;
+                    case GameStatus.Player2Wins:
+                        Console.WriteLine("Player 2 wins!");
+                        break;
+                }
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Invalid input. Use Rock, Paper, or Scissors.");
             }
         }
 
-        private static int RockPaperScissors(string player1, string player2)
+        private static GameStatus RockPaperScissors(GameItem player1, GameItem player2)
         {
             if (player1 == player2)
+                return GameStatus.Draw;
+
+            return (player1, player2) switch
             {
-                return 0; // Draw
-            }
-            if (((player1 == "Rock") && (player2 == "Scissors")) ||
-                ((player1 == "Scissors") && (player2 == "Paper")) ||
-                ((player1 == "Paper") && (player2 == "Rock")))
-            {
-                return 1; // Player 1 wins
-            }
-            else
-            {
-                return 2; // Player 2 wins
-            }
+                (GameItem.Rock, GameItem.Scissors) => GameStatus.Player1Wins,
+                (GameItem.Scissors, GameItem.Paper) => GameStatus.Player1Wins,
+                (GameItem.Paper, GameItem.Rock) => GameStatus.Player1Wins,
+                _ => GameStatus.Player2Wins
+            };
         }
     }
 }
